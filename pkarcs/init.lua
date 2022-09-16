@@ -181,9 +181,9 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 	})
 
 	minetest.register_craft({
-		output = "pkarcs:"..nodename.."_outer_arc".." 5",
+		output = "pkarcs:"..nodename.."_outer_arc".." 4",
 		recipe = {
-			{ "default:torch", craftmaterial, craftmaterial },
+			{ "", craftmaterial, craftmaterial },
 			{ craftmaterial,   "",            ""            },
 			{ craftmaterial,   "",            ""            }
 		}
@@ -278,7 +278,7 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 		output = "pkarcs:"..nodename.."_inner_arc".." 5",
 		recipe = {
 			{ "",            craftmaterial,   craftmaterial },
-			{ craftmaterial, "default:torch", ""            },
+			{ craftmaterial, craftmaterial, ""            },
 			{ craftmaterial, "",              ""            }
 		}
 	})
