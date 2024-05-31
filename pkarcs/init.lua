@@ -7,7 +7,7 @@
 
 	This mod adds arc-nodes to Minetest as well as arcs for inner and outer
 	corners, based on the default stone and wood materials.
-	
+
 	To make arcs from nodes of your mod, put "pkarcs?" into your depends.txt,
 	and call this function in your init.lua:
 
@@ -31,7 +31,7 @@ end
 -- define nodes
 
 function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
-	local tile_collection
+	local tile_collection = {}
 	if type(tile) == "string" then
 		tile_collection[1] = tile
 	else
@@ -60,6 +60,7 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 			}
 		},
 		groups = group,
+		is_ground_content = false,
 		sounds = sound,
 
 		on_place = function(itemstack, placer, pointed_thing)
@@ -95,7 +96,7 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 			local wall = math.floor(param2/NROT)
 			if rot >=3 then
 				rot = 0
-			else 
+			else
 				rot = rot +1
 			end
 			param2 = wall*NROT+rot
@@ -135,6 +136,7 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 			}
 		},
 		groups = group,
+		is_ground_content = false,
 		sounds = sound,
 
 		on_place = function(itemstack, placer, pointed_thing)
@@ -170,7 +172,7 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 			local wall = math.floor(param2/NROT)
 			if rot >=3 then
 				rot = 0
-			else 
+			else
 				rot = rot +1
 			end
 			param2 = wall*NROT+rot
@@ -229,6 +231,7 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 			}
 		},
 		groups = group,
+		is_ground_content = false,
 		sounds = sound,
 
 		on_place = function(itemstack, placer, pointed_thing)
@@ -264,7 +267,7 @@ function pkarcs.register_all(nodename, desc, tile, sound, group, craftmaterial)
 			local wall = math.floor(param2/NROT)
 			if rot >=3 then
 				rot = 0
-			else 
+			else
 				rot = rot +1
 			end
 			param2 = wall*NROT+rot
@@ -288,7 +291,7 @@ end
 -- register nodes
 
 function pkarcs.register_node(name)
-	local node_def = minetest.registered_nodes[name]
+	local node_def = table.copy(minetest.registered_nodes[name])
 	if not node_def then
 		minetest.log("warning", "[pkarcs] Skipping unknown node: ".. name)
 		return
@@ -296,7 +299,7 @@ function pkarcs.register_node(name)
 	local node_name = name:split(':')[2]
 
 	if not node_def.tiles then
-		node_def.tiles = table.copy(node_def.tile_images)
+		node_def.tiles = node_def.tile_images
 		node_def.tile_images = nil
 	end
 
